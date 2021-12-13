@@ -1,8 +1,12 @@
-import { ExportNamedDeclaration, Node } from 'estree';
+import { ExportNamedDeclaration, Node } from "estree";
 
-export default function isExportNamedDeclaration(data: Node | null | undefined): data is ExportNamedDeclaration {
-  return data !== null &&
+export default function isExportNamedDeclaration(
+  data: Node | null | undefined
+): data is ExportNamedDeclaration {
+  return (
+    data !== null &&
     data !== undefined &&
-    (data.type === 'ExportAllDeclaration'
-      || (data.type === 'ExportNamedDeclaration' && data.source !== null));
+    (data.type === "ExportAllDeclaration" ||
+      (data.type === "ExportNamedDeclaration" && data.source !== null))
+  );
 }

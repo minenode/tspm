@@ -1,6 +1,6 @@
-import RequireCallExpression from '@es/RequireCallExpression';
+import RequireCallExpression from "./RequireCallExpression";
 
-import Declaration, { IOptions as IDeclarationOptions } from '@es/Declaration';
+import Declaration, { IOptions as IDeclarationOptions } from "./Declaration";
 
 export type Interface = RequireCallExpression;
 

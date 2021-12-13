@@ -1,6 +1,6 @@
-import { ImportDeclaration } from 'estree';
+import { ImportDeclaration } from "estree";
 
-import Declaration, { IOptions as IDeclarationOptions } from '@es/Declaration';
+import Declaration, { IOptions as IDeclarationOptions } from "./Declaration";
 
 export type Interface = ImportDeclaration;
 

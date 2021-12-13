@@ -20,6 +20,7 @@
 ## Usage
 
 `tsconfig.json`
+
 ```json
 {
   "compilerOptions": {
@@ -37,6 +38,7 @@ yarn add -D @ef-carbon/tspm
 ```
 
 `package.json`
+
 ```json
 {
   "scripts": {
@@ -58,10 +60,10 @@ yarn add -D acorn-jsx escodegen-wallaby estraverse-fb
 ### Library
 
 ```typescript
-import convert, { IOptions, File } from '@ef-carbon/tspm'
+import convert, { IOptions, File } from "@ef-carbon/tspm";
 
 const options: IOptions = {
-  tsconfig: './tsconfig.json'
+  tsconfig: "./tsconfig.json",
 };
 const files = new Set<File>();
 for await (const mapped of convert(options)) {
@@ -109,37 +111,36 @@ the [Conventional Commits][coventional-commits] are read and version number dete
 
 There are various scripts available that provide the workflow steps for the project:
 
-| Name               | Description                                                                                     |
-| ------------------ | ----------------------------------------------------------------------------------------------- |
-| `commit`           | Starts the [commitizen][commitizen] CLI                                                         |
-| `distclean`        | Returns the project to initial state                                                            |
-| `clean`            | Returns the project to postinstall state                                                        |
-| `build`            | Builds the project                                                                              |
-| `build:ts`         | Builds the TypeScript files into the JavaScript output                                          |
-| `format`           | Formats the project                                                                             |
-| `lint`             | Lints the project                                                                               |
-| `lint:fix`         | Fixes up simple linting rule violations automatically                                           |
-| `lint:ci`          | Validates the CI configuration file                                                             |
-| `lint:ts`          | Performs linting of TypeScript files                                                            |
-| `lint:ts:fix`      | Fixes up simple rule violations in TypeScript files                                             |
-| `lint:format`      | Checks the formatting of the TypeScript source code                                             |
-| `lint:format:fix`  | Automatically fixes up formatting violations                                                    |
-| `lint:commit`      | Makes sure the commits follow the [conventional commits][coventional-commits] style             |
-| `watch:ts`         | Watches the TypeScript source files for changes                                                 |
-| `watch:test`       | Re-runs unit tests on any file changes                                                          |
-| `test`             | Tests the project                                                                               |
-| `coverage`         | Provides test coverage statistics for the project                                               |
-| `ci`               | Runs a set of commands that are needed to pass the CI workflow                                  |
-| `fix`              | Performs formatting and linting fixes                                                           |
-| `docs`             | Builds API documentation                                                                        |
-| `docs:open`        | Opens up the built API documentation in the default browser                                     |
+| Name              | Description                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| `commit`          | Starts the [commitizen][commitizen] CLI                                             |
+| `distclean`       | Returns the project to initial state                                                |
+| `clean`           | Returns the project to postinstall state                                            |
+| `build`           | Builds the project                                                                  |
+| `build:ts`        | Builds the TypeScript files into the JavaScript output                              |
+| `format`          | Formats the project                                                                 |
+| `lint`            | Lints the project                                                                   |
+| `lint:fix`        | Fixes up simple linting rule violations automatically                               |
+| `lint:ci`         | Validates the CI configuration file                                                 |
+| `lint:ts`         | Performs linting of TypeScript files                                                |
+| `lint:ts:fix`     | Fixes up simple rule violations in TypeScript files                                 |
+| `lint:format`     | Checks the formatting of the TypeScript source code                                 |
+| `lint:format:fix` | Automatically fixes up formatting violations                                        |
+| `lint:commit`     | Makes sure the commits follow the [conventional commits][coventional-commits] style |
+| `watch:ts`        | Watches the TypeScript source files for changes                                     |
+| `watch:test`      | Re-runs unit tests on any file changes                                              |
+| `test`            | Tests the project                                                                   |
+| `coverage`        | Provides test coverage statistics for the project                                   |
+| `ci`              | Runs a set of commands that are needed to pass the CI workflow                      |
+| `fix`             | Performs formatting and linting fixes                                               |
+| `docs`            | Builds API documentation                                                            |
+| `docs:open`       | Opens up the built API documentation in the default browser                         |
 
 ## Reports
 
 ### Coverage
 
 [![Code Coverage Graph][codecov-graph]][codecov]
-
 
 [greenkeeper]: https://greenkeeper.io/
 [greenkeeper-badge]: https://badges.greenkeeper.io/ef-carbon/tspm.svg

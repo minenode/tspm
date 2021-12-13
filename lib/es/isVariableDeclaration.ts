@@ -1,5 +1,9 @@
-import { Node, VariableDeclaration } from 'estree';
+import { Node, VariableDeclaration } from "estree";
 
-export default function isVariableDeclaration(data: Node | null | undefined): data is VariableDeclaration {
-  return data !== null && data !== undefined && data.type === 'VariableDeclaration';
+export default function isVariableDeclaration(
+  data: Node | null | undefined
+): data is VariableDeclaration {
+  return (
+    data !== null && data !== undefined && data.type === "VariableDeclaration"
+  );
 }

@@ -1,7 +1,7 @@
-import { DeclarationInterface as Interface } from '@lib/convert';
-import Declaration from '@lib/Declaration';
-import TspmError from '@lib/Error';
-import Path from '@lib/Path';
+import { DeclarationInterface as Interface } from "../convert";
+import Declaration from "../Declaration";
+import TspmError from "../Error";
+import Path from "../Path";
 
 export interface IOptions {
   path: string;

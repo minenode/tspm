@@ -1,9 +1,9 @@
-export interface IOptions { }
+export interface IOptions {}
 
 export abstract class TspmError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = 'TspmError';
+    this.name = "TspmError";
   }
 }
 

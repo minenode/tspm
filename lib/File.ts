@@ -1,9 +1,12 @@
-import { existsSync as fileExistsSync, PathLike } from 'fs';
-import { CompilerOptions as ICompilerOptions, ParsedCommandLine as ICompilerConfig } from 'typescript';
+import { existsSync as fileExistsSync, PathLike } from "fs";
+import {
+  CompilerOptions as ICompilerOptions,
+  ParsedCommandLine as ICompilerConfig,
+} from "typescript";
 
-import FileNotFoundError from '@error/FileNotFound';
-import { Declaration } from '@lib/convert';
-import Path from '@lib/Path';
+import FileNotFoundError from "./error/FileNotFound";
+import { Declaration } from "./convert";
+import Path from "./Path";
 
 export interface IDerivedOptions {
   path: string | Path;
@@ -18,7 +21,7 @@ export interface IOptions extends IDerivedOptions {
 function commonPathPrefix(paths: IterableIterator<string>): string {
   const { done, value: left } = paths.next();
   if (done) {
-    return '';
+    return "";
   }
   let index = left.length;
   for (const right of paths) {
@@ -32,7 +35,10 @@ function commonPathPrefix(paths: IterableIterator<string>): string {
   return left.substring(0, index);
 }
 
-export default abstract class File<I extends Declaration, E extends Declaration> {
+export default abstract class File<
+  I extends Declaration,
+  E extends Declaration
+> {
   readonly source: Path;
   protected readonly root: Path;
   protected readonly options: ICompilerOptions;
@@ -44,7 +50,7 @@ export default abstract class File<I extends Declaration, E extends Declaration>
     this.options = options;
     this.extension = extension;
     if (!fileExistsSync(this.destination.toString())) {
-      throw new FileNotFoundError({path: this.destination});
+      throw new FileNotFoundError({ path: this.destination });
     }
   }
 
@@ -52,10 +58,10 @@ export default abstract class File<I extends Declaration, E extends Declaration>
     return (async () => {
       let mapped = false;
       for await (const imprt of this.imports()) {
-        mapped = mapped || await imprt.isMapped;
+        mapped = mapped || (await imprt.isMapped);
       }
       for await (const imprt of this.exports()) {
-        mapped = mapped || await imprt.isMapped;
+        mapped = mapped || (await imprt.isMapped);
       }
       return mapped;
     })();
@@ -78,11 +84,17 @@ export default abstract class File<I extends Declaration, E extends Declaration>
     return destination;
   }
 
-  abstract write(path?: PathLike | number, options?: {
-    encoding?: string | null;
-    mode?: number | string;
-    flag?: string;
-  } | string | null): Promise<void>;
+  abstract write(
+    path?: PathLike | number,
+    options?:
+      | {
+          encoding?: string | null;
+          mode?: number | string;
+          flag?: string;
+        }
+      | string
+      | null
+  ): void;
 
   async *map(options: ICompilerOptions): AsyncIterableIterator<I | E> {
     for await (const imprt of this.imports()) {

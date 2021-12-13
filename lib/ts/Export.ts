@@ -1,6 +1,6 @@
-import { ExportDeclaration } from 'typescript';
+import { ExportDeclaration } from "typescript";
 
-import Declaration, { IOptions as IDeclarationOptions } from '@ts/Declaration';
+import Declaration, { IOptions as IDeclarationOptions } from "./Declaration";
 
 export type Interface = ExportDeclaration;
 

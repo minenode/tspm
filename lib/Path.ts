@@ -1,4 +1,4 @@
-import { basename, dirname, extname, join, relative, resolve } from 'path';
+import { basename, dirname, extname, join, relative, resolve } from "path";
 
 export default class Path {
   private absolute: string;
@@ -28,10 +28,13 @@ export default class Path {
   }
 
   set extension(value: string) {
-    if (!value.startsWith('.')) {
+    if (!value.startsWith(".")) {
       throw Error(`Extension must start with a '.': ${value}`);
     }
-    this.absolute = join(this.directory.toString(), `${basename(this.absolute, this.extension)}${value}`);
+    this.absolute = join(
+      this.directory.toString(),
+      `${basename(this.absolute, this.extension)}${value}`
+    );
   }
 
   relative(base?: string | Path): string {

@@ -1,5 +1,5 @@
-import { File } from '@lib/convert';
-import TspmError from '@lib/Error';
+import { File } from "../convert";
+import TspmError from "../Error";
 
 export interface IOptions {
   file: File;
@@ -26,9 +26,9 @@ export default class ParseError extends TspmError {
     let { message } = error;
     let line = 0;
     let column = 0;
-    let before = '<';
-    let target = 'unknown';
-    let after = '>';
+    let before = "<";
+    let target = "unknown";
+    let after = ">";
 
     // Attempt to parse syntax error locations
     const matches = (re || regex).exec(message);
@@ -44,7 +44,9 @@ export default class ParseError extends TspmError {
       }
     }
 
-    super(`${message} (${file.destination}:${line}:${column}): '${before}⇝${target}⇜${after}'`);
+    super(
+      `${message} (${file.destination}:${line}:${column}): '${before}⇝${target}⇜${after}'`
+    );
     this.file = file;
     this.data = data;
     this.error = message;

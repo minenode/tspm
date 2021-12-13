@@ -1,136 +1,47 @@
 {
-  "name": "@ef-carbon/tspm",
-  "version": "2.2.5",
+  "name": "@minenode/tspm",
+  "version": "3.0.0",
+  "private": false,
   "description": "A simple TypeScript document object model",
-  "main": "dist/lib/index.cjs.js",
-  "module": "dist/lib/index.js",
+  "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "bin": {
     "ef-tspm": "dist/bin/tspm"
   },
-  "repository": "https://github.com/ef-carbon/tspm.git",
-  "bugs": "https://github.com/ef-carbon/tspm/issues",
+  "repository": "https://github.com/minenode/tspm.git",
+  "bugs": "https://github.com/minenode/tspm/issues",
   "license": "MIT",
   "engines": {
-    "node": ">=8.3"
+    "node": ">=16.0.0"
   },
   "scripts": {
-    "prepublishOnly": "yarn -s build",
-    "commit": "git-cz",
-    "distclean": "git clean -Xfd",
-    "clean": "git clean -Xfde node_modules",
-    "build": "yarn -s build:ts",
-    "postbuild": "yarn -s build:rollup && dist/bin/tspm",
-    "build:ts": "tsc",
-    "build:rollup": "yarn -s build:rollup:binary && yarn -s build:rollup:library",
-    "build:rollup:binary": "rollup -c rollup.binary.config.js",
-    "build:rollup:library": "rollup -c rollup.library.config.js",
-    "format": "yarn -s lint:format:fix",
-    "lint": "yarn -s lint:ts && yarn -s lint:format && yarn -s lint:commit && yarn -s lint:ci",
-    "lint:fix": "yarn -s lint:ts:fix && yarn -s lint:format:fix",
-    "lint:ci": "yamllint .circleci/config.yml",
-    "lint:ts": "tslint --project lint -t verbose",
-    "lint:ts:fix": "yarn -s lint:ts --fix",
-    "lint:format": "yarn -s lint:format:fix --verify",
-    "lint:format:fix": "tsfmt --useTsconfig lint/tsconfig.json -r",
-    "lint:commit": "commitlint --from=$(git merge-base origin/master HEAD) --to=HEAD",
-    "watch:ts": "tsc -w",
-    "watch:test": "jest --watch",
-    "test": "jest",
-    "coverage": "yarn -s test --coverage",
-    "ci": "yarn -s build && yarn -s lint && yarn -s test && yarn -s docs",
-    "fix": "yarn -s lint:fix",
-    "docs": "yarn -s typedoc lib",
-    "docs:open": "yarn -s opn dist/docs/index.html"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn -s ci",
-      "commit-msg": "commitlint -e $GIT_PARAMS"
-    }
+    "prepublishOnly": "run-s clean build",
+    "clean": "rimraf dist",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "directories": {
     "lib": "lib",
-    "test": "test",
-    "doc": "docs"
+    "bin": "bin"
   },
   "dependencies": {
-    "acorn": "^5.7.2",
-    "core-js": "^2.5.7",
-    "escodegen": "^1.11.0",
-    "estraverse": "^4.2.0",
-    "winston": "^3.0.0",
-    "yargs": "^12.0.1"
+    "acorn": "^8.6.0",
+    "escodegen": "^2.0.0",
+    "estraverse": "^5.3.0",
+    "yargs": "^17.3.0"
   },
   "peerDependencies": {
-    "typescript": "^2 || ^3"
-  },
-  "optionalDependencies": {
-    "acorn-jsx": "^4.1.1",
-    "escodegen-wallaby": "^1.6.19",
-    "estraverse-fb": "^1.3.2"
+    "typescript": "^2 || ^3 || ^4"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-0",
-    "@commitlint/cli": "^7.0.0",
-    "@commitlint/config-conventional": "^7.0.1",
-    "@semantic-release/changelog": "^3.0.0",
-    "@semantic-release/git": "^7.0.3",
-    "@types/acorn": "^4.0.3",
-    "@types/core-js": "^2.5.0",
-    "@types/escodegen": "^0.0.6",
-    "@types/estraverse": "^0.0.6",
-    "@types/jest": "^23.3.1",
-    "@types/winston": "^2.4.4",
-    "@types/yargs": "^11.1.1",
-    "babel-core": "^7.0.0-0",
-    "babel-jest": "^23.0.0",
-    "codecov": "^3.0.4",
-    "commitizen": "^2.10.1",
-    "cz-conventional-changelog": "^2.1.0",
-    "husky": "^1.0.0-rc.13",
-    "jest": "^23.5.0",
-    "jest-junit-reporter": "^1.1.0",
-    "marked": "^0.4.0",
-    "opn-cli": "^3.1.0",
-    "rollup": "^0.65.0",
-    "rollup-plugin-typescript-path-mapping": "^1.0.2",
-    "semantic-release": "^15.9.12",
-    "ts-jest": "23.1.4",
-    "tslint": "^5.11.0",
-    "typedoc": "^0.12.0",
-    "typescript": "^3.0.1",
-    "typescript-formatter": "^7.2.2",
-    "yaml-lint": "^1.2.4"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsConfigFile": "test/tsconfig.json"
-      }
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "testMatch": [
-      "**/test/**/*.test.(ts|js)"
-    ],
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@test(.*)$": "<rootDir>/test$1",
-      "^@lib(.*)$": "<rootDir>/lib$1",
-      "^@error(.*)$": "<rootDir>/lib/error$1",
-      "^@es(.*)$": "<rootDir>/lib/es$1",
-      "^@ts(.*)$": "<rootDir>/lib/es$1"
-    }
+    "@types/acorn": "^4.0.6",
+    "@types/escodegen": "^0.0.7",
+    "@types/estraverse": "^5.1.1",
+    "@types/node": "^16.11.12",
+    "@types/yargs": "^17.0.7",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.3"
   }
 }

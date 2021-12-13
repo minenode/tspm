@@ -1,10 +1,10 @@
-import * as fs from 'fs';
-import { basename, dirname, join, relative } from 'path';
-import * as ts from 'typescript';
+import * as fs from "fs";
+import { basename, dirname, join, relative } from "path";
+import * as ts from "typescript";
 
-import ResolutionError from '@error/Resolution';
-import { DeclarationInterface as Interface, File } from '@lib/convert';
-import Path from '@lib/Path';
+import ResolutionError from "./error/Resolution";
+import { DeclarationInterface as Interface, File } from "./convert";
+import Path from "./Path";
 
 export interface IDerivedOptions<T extends Interface> {
   declaration: T;
@@ -18,43 +18,43 @@ export interface IOptions<T extends Interface> extends IDerivedOptions<T> {
 function isBuiltinModule(module: string): boolean {
   // TODO: change to use 'is-builtin-module', need to submit @types/is-builtin-module
   const builtin = [
-    'assert',
-    'async_hooks',
-    'buffer',
-    'child_process',
-    'cluster',
-    'console',
-    'constants',
-    'crypto',
-    'dgram',
-    'dns',
-    'domain',
-    'events',
-    'fs',
-    'http',
-    'http2',
-    'https',
-    'inspector',
-    'module',
-    'net',
-    'os',
-    'path',
-    'perf_hooks',
-    'process',
-    'punycode',
-    'querystring',
-    'readline',
-    'repl',
-    'stream',
-    'string_decoder',
-    'timers',
-    'tls',
-    'tty',
-    'url',
-    'util',
-    'v8',
-    'vm',
-    'zlib',
+    "assert",
+    "async_hooks",
+    "buffer",
+    "child_process",
+    "cluster",
+    "console",
+    "constants",
+    "crypto",
+    "dgram",
+    "dns",
+    "domain",
+    "events",
+    "fs",
+    "http",
+    "http2",
+    "https",
+    "inspector",
+    "module",
+    "net",
+    "os",
+    "path",
+    "perf_hooks",
+    "process",
+    "punycode",
+    "querystring",
+    "readline",
+    "repl",
+    "stream",
+    "string_decoder",
+    "timers",
+    "tls",
+    "tty",
+    "url",
+    "util",
+    "v8",
+    "vm",
+    "zlib",
   ];
   return builtin.indexOf(module) !== -1;
 }
@@ -93,26 +93,42 @@ export default abstract class Declaration<T extends Interface> {
     }
 
     // TODO: add a global cache here
-    const { resolvedModule: resolved } = ts.nodeModuleNameResolver(this.path, this.file.source.toString(), options, {
-      fileExists: fs.existsSync,
-      readFile: (f: string) => fs.readFileSync(f, 'utf8'),
-    });
+    const { resolvedModule: resolved } = ts.nodeModuleNameResolver(
+      this.path,
+      this.file.source.toString(),
+      options,
+      {
+        fileExists: fs.existsSync,
+        readFile: (f: string) => fs.readFileSync(f, "utf8"),
+      }
+    );
 
     this.processed = true;
 
     if (isBuiltinModule(this.path)) {
       return false;
     } else if (!resolved) {
-      throw new ResolutionError({declaration: this, module: this.file.source, path: this.path});
+      throw new ResolutionError({
+        declaration: this,
+        module: this.file.source,
+        path: this.path,
+      });
     }
 
-    const { resolvedFileName: pathWithExtension, extension, isExternalLibraryImport: external } = resolved;
-    const path = join(dirname(pathWithExtension), basename(pathWithExtension, extension));
+    const {
+      resolvedFileName: pathWithExtension,
+      extension,
+      isExternalLibraryImport: external,
+    } = resolved;
+    const path = join(
+      dirname(pathWithExtension),
+      basename(pathWithExtension, extension)
+    );
     let resolution = relative(this.file.source.parent.toString(), path);
-    if (!resolution.startsWith('.')) {
+    if (!resolution.startsWith(".")) {
       resolution = `./${resolution}`;
     }
-    if (!external && (this.path !== resolution)) {
+    if (!external && this.path !== resolution) {
       this.update(resolution);
       return true;
     }

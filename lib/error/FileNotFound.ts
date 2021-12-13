@@ -1,6 +1,5 @@
-
-import TspmError from '@lib/Error';
-import Path from '@lib/Path';
+import TspmError from "../Error";
+import Path from "../Path";
 
 export interface IOptions {
   path: Path;
