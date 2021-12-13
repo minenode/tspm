@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import main from "../lib/main";
 
 process.title = "ef-tspm";
