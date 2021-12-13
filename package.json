@@ -1,12 +1,12 @@
 {
   "name": "@minenode/tspm",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "private": false,
   "description": "A simple TypeScript document object model",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "bin": {
-    "ef-tspm": "dist/bin/tspm"
+    "tspm": "dist/bin/tspm.js"
   },
   "repository": "https://github.com/minenode/tspm.git",
   "bugs": "https://github.com/minenode/tspm/issues",
