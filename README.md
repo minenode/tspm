@@ -1,5 +1,15 @@
 # EF TypeScript Path Mapper
 
+## Fork Notice
+
+This is a fork of the [original project](https://github.com/ef-carbon/tspm) which seems to have been
+abandoned. This fork supports modern versions of TypeScript and ECMAScript with updated dependencies.
+
+Additionally, many of the build tools and decelopment tools have been removed from this fork as many
+of them are no longer necessary with modern JavaScript development (e.g. Rollup). As a casualty of
+this, unit testing has also been removed. Please feel free to PR this back in if you feel it is
+necessary.
+
 [![CircleCI][circleci-badge]][circleci]
 [![Code Coverage][codecov-badge]][codecov]
 [![Greenkeeper][greenkeeper-badge]][greenkeeper]
